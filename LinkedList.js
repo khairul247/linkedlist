@@ -53,7 +53,7 @@ export default class LinkedList {
     }
 
     at(index) {
-        if (index => this.size || index < 0){
+        if (index >= this.size || index < 0){
             return null;
         } else {
             let current = this.head;
@@ -64,5 +64,26 @@ export default class LinkedList {
             }
             return current;
         }
+    }
+
+    pop() { //remove last element
+        if (this.size == 0){
+            return null;
+        } else if (this.size == 1){
+            this.head = null;
+        } else {
+            let current = this.head;
+            while (current.nextNode && current.nextNode.nextNode){
+                current = current.nextNode;
+            }
+            current.nextNode = null;
+            this.size--;
+        }
+    }
+
+    contains(value, node = this.head) {
+        if (node === null) return false;
+        if (node.value === value) return true;
+        return this.contains(value,node.nextNode)
     }
 }
